@@ -28,3 +28,21 @@ export default function X() {
 * 参考[这里](https://juejin.im/entry/58f49c20ac502e006c3a614e)
 
 
+#### 在 _app.js 进行全局配置
+```
+import Head from "next/dist/next-server/lib/head";
+import React from "react";
+
+export default function App({Component,pageProps}) {
+    return <div className='myBlog'>
+
+        <Head>
+            <title>我的博客</title>
+            <link rel="icon" href="/favicon.ico" />
+        </Head>
+
+        <Component {...pageProps}/>
+    </div>
+}
+```
+* 创建 _app.js 后要重新 yarn dev
