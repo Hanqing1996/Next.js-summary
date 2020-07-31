@@ -84,3 +84,9 @@ import 'styles/global.css'
 }
 ```
 会自动在 jsconfig.json 所在目录中查找 styles/global.css
+
+#### 使用 scss
+安装 sass
+```
+yarn add -D sass
+```
