@@ -46,3 +46,41 @@ export default function App({Component,pageProps}) {
 }
 ```
 * 创建 _app.js 后要重新 yarn dev
+
+#### 全局 css 和局部 css
+* 全局 css 只能在 _app.js 中引入
+```
+// _app.js
+
+import '../styles/global.css'
+```
+* 局部 css
+```
+<style jsx>{`
+.container {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+`}</style>
+```
+
+#### 使用绝对路径
+```
+// _app.js
+
+import 'styles/global.css'
+```
+```
+// jsconfig.json
+
+{
+  "compilerOptions": {
+    "baseUrl": "."
+  }
+}
+```
+会自动在 jsconfig.json 所在目录中查找 styles/global.css
