@@ -21,6 +21,8 @@ export default function X() {
 }
 ```
 可访问 http://localhost:3000/first-page
+* 想要访问 pages/posts/index.tsx,必须使用路由 http://localhost:3000/posts
+详见[文档](https://nextjs.org/docs/routing/introduction)
 
 #### SSR 和 CSR
 * SSR:server-side-render;
@@ -94,13 +96,13 @@ yarn add -D sass
 #### 引入静态资源
 * 直接把 find.png 放在 public 目录下
 ```
-// index.js
+// index.tsx
 
 <img src="/find.png" alt=""/>
 ```
 * 把 find.png 放在 assets/image 目录下
 ```
-// index.js
+// index.tsx
 
 import Link from "next/link";
 import png from '../../assets/image/find.png'
@@ -168,9 +170,55 @@ tsc --init
 }
 ```
 ```
-// pages/index.js
+// pages/index.tsx
 
 print('./');// 输出的是 blog 目录下的文件名
 ```
 
 #### gray-matter
+用于解析文本内容
+
+#### 客户端渲染
+只在浏览器上执行的渲染
+
+#### SSG（static site generation）
+* 属于 pre-render
+
+#### SSR（server side render）
+* 属于 pre-render
+
+
+#### res 返回一个 json 字符串，axios 会解析成数组
+```
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+    const posts = await getPosts()
+
+    res.statusCode = 200
+    res.setHeader('Content-Type', 'application/json')
+    res.write(JSON.stringify(posts));
+    res.end()
+}
+```
+```
+import {NextPage} from "next";
+import React, {useEffect, useState} from "react";
+import axios from 'axios'
+
+const PostsIndex:NextPage=()=>{
+
+    const [posts,setPosts]=useState([])
+    useEffect(()=>{
+        axios.get('/api/posts').then(res=>{
+            setPosts(res.data)
+        })
+    },[])
+
+    return(
+        <div>
+            Posts Index
+        </div>
+    )
+}
+
+export default PostsIndex
+```
