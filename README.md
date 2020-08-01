@@ -143,3 +143,34 @@ module.exports = {
 }
 ```
 * 使用 [next-images](https://www.npmjs.com/package/next-images)
+
+
+#### 支持 typescript
+1. [创建并初始化 tsconfig.json](https://github.com/Hanqing1996/TypeScript-learning)
+```
+yarn add typescript
+tsc --init
+```
+
+
+#### 制造 API 接口
+* [api-routes](https://nextjs.org/docs/api-routes/introduction)
+
+#### 配置 baseUrl 
+> 指定基准目录为 next.config.js 所在目录
+```
+// next.config.js,位于 blog 目录下
+
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    }
+}
+```
+```
+// pages/index.js
+
+print('./');// 输出的是 blog 目录下的文件名
+```
+
+#### gray-matter

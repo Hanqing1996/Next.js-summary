@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from "next/link";
-import png from '../../assets/image/find.png'
+import png from '../assets/image/find.png'
 import React from "react";
 
 console.log(png);
