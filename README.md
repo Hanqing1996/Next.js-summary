@@ -90,3 +90,55 @@ import 'styles/global.css'
 ```
 yarn add -D sass
 ```
+
+#### 引入静态资源
+* 直接把 find.png 放在 public 目录下
+```
+// index.js
+
+<img src="/find.png" alt=""/>
+```
+* 把 find.png 放在 assets/image 目录下
+```
+// index.js
+
+import Link from "next/link";
+import png from '../../assets/image/find.png'
+import React from "react";
+
+export default function Home() {
+  return (
+    <div className="container">
+        <h1 className="title">
+          第一篇文章 <Link href="./first-page">点击这里</Link>
+
+          Welcome to <a href="https://nextjs.org">Next.js!</a>
+        </h1>
+        <img src={png} alt=""/>
+    </div>
+  )
+}
+```
+```
+// next.config.js
+
+module.exports = {
+    webpack: (config, options) => {
+        const {isServer}=options
+        config.module.rules.push({
+            test: /\.png$/,
+            use: [
+                {
+                    loader: 'file-loader',
+                    options:{
+                        outputPath:'static',
+                        publicPath:'_next/static'
+                    }
+                },
+
+            ]
+        })
+        return config
+    }
+}
+```
