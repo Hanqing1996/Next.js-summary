@@ -142,3 +142,4 @@ module.exports = {
     }
 }
 ```
+* 使用 [next-images](https://www.npmjs.com/package/next-images)
