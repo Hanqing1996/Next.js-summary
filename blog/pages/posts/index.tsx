@@ -1,18 +1,28 @@
-import {NextPage} from "next";
+import {GetStaticProps, NextPage} from "next";
 import React, {useEffect, useState} from "react";
 import usePosts from "../../hooks/usePosts";
+import {getPosts} from "../../lib/posts";
 
-const PostsIndex:NextPage=()=>{
 
-    const {posts,isLoading,isEmpty}=usePosts()
+const PostsIndex:NextPage<{posts:Post []}>=(props)=>{
+
+    console.log(props.posts);
 
     return(
         <div>
-            {isLoading?<div>加载中</div>:
-                isEmpty?<div>空的</div>:
-                posts.map(post=><div key={post.id}>{post.id}-{post.title}</div>)}
+            <h1>文章列表</h1>
+            {props.posts.map(post=><div key={post.id}>{post.title}-{post.date}</div>)}
         </div>
     )
 }
 
 export default PostsIndex
+
+export const getStaticProps=async ()=>{
+    const posts=await getPosts()
+    return {
+        props:{
+            posts
+        }
+    }
+}

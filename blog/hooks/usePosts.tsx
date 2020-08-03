@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import axios from "axios";
 
 const usePosts=()=>{
+
     const [posts,setPosts]=useState([])
     const [isLoading,setLoading]=useState(false)
     const [isEmpty,setIsEmpty]=useState(false)
@@ -12,6 +13,7 @@ const usePosts=()=>{
 
             setTimeout(()=>{
                 setPosts(res.data)
+
 
                 if(res.data.length==0){
                     setIsEmpty(true)
