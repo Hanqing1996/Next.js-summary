@@ -209,8 +209,8 @@ return(
 
 ---
 #### SSG（static site generation）
+> 最直白的理解，SSG 就是在 build（此时服务尚未开启）时统一生成所有含数据的 HTML。是生成<strong>静态资源</strong>的的机制，与请求/响应无关
 * 属于 pre-render
-> posts 由后端获取，最后返回给前端完整的，含数据的 HTML
 ```
 // pages/posts/index.tsx
 
