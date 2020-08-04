@@ -244,6 +244,7 @@ export const getStaticProps=async ()=>{
 ---
 
 #### SSR（server side render）
+> 最直白的理解，SSR就是在接收到请求后，返回的东西不是 json 而是 HTML
 * 属于 pre-render
 * SSR 比 pre-render，多了一步执行JS的过程。
 
