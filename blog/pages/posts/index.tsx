@@ -11,7 +11,9 @@ const PostsIndex:NextPage<{posts:Post []}>=(props)=>{
     return(
         <div>
             <h1>文章列表</h1>
-            {props.posts.map(post=><div key={post.id}>{post.title}-{post.date}</div>)}
+            {props.posts.map(post=>{
+                
+            })}
         </div>
     )
 }
