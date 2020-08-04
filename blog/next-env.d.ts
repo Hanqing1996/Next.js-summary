@@ -8,5 +8,6 @@ declare module "*.png" {
 type Post={
     id:string,
     date:string,
-    title:string
+    title:string,
+    content?:string
 }

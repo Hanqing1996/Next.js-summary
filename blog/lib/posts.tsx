@@ -19,3 +19,12 @@ export const getPosts = async () => {
     });
     return posts;
 };
+
+export const getPost=async (id)=>{
+    const fullPath = path.join(markdownDir, id+'.md');
+    const text = fs.readFileSync(fullPath, 'utf-8');
+    const {data: {title, date}, content} = matter(text);
+    return {
+        id,title,date,content
+    }
+}

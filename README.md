@@ -207,15 +207,9 @@ return(
 1. 服务端渲染（renderToString()）：返回静态 HTML 字符串
 2. 客户端渲染（hydrate()）：检验渲染结果与服务端是否一致，并添加事件绑定
 
-
-####
-
-
-
 ---
 #### SSG（static site generation）
 * 属于 pre-render
-
 > posts 由后端获取，最后返回给前端完整的，含数据的 HTML
 ```
 // pages/posts/index.tsx
@@ -243,46 +237,32 @@ export const getStaticProps=async ()=>{
     }
 }
 ```
-在生产环境下，getStaticProps 只在 build 时运行一次，这样可以提供一份HTML给所有用户下载
+#### getStaticProps
+* 在开发环境下，getStaticProps 在每次请求到来后运行【方便开发】
+* 在生产环境下，getStaticProps 只在 build（Next.js 项目 build 的结果是一个静态网站） 时运行一次，这样可以提供一份HTML给所有用户下载
+
+#### getStaticPaths（穷举）
+> 对于 pages/posts/[id].js 这样的动态页面，Next.js 可以在 build 时提前渲染好 posts/1,posts/2,posts/3...再根据 url 的 params 参数 id 确定返回给用户哪个 HTML
+
+> 注意所有 post/[id] 都是提前准备好的（在 build 时），不是在请求发送后才渲染的，所以没有用户等待数据加载的时间。
+* [Next.js 对 getStaticPaths 的介绍](https://nextjs.org/docs/basic-features/pages#scenario-2-your-page-paths-depend-on-external-data)
 
 
+---
 
 #### SSR（server side render）
 * 属于 pre-render
 * SSR 比 pre-render，多了一步执行JS的过程。
 
+#### getServerSideProps
+* getServerSideProps 是在每次请求到来后运行的
 
-#### res 返回一个 json 字符串，axios 会解析成数组
-```
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-    const posts = await getPosts()
 
-    res.statusCode = 200
-    res.setHeader('Content-Type', 'application/json')
-    res.write(JSON.stringify(posts));
-    res.end()
-}
-```
-```
-import {NextPage} from "next";
-import React, {useEffect, useState} from "react";
-import axios from 'axios'
+#### 同构
+> 同构是SSR的核心理念。同构就是一份js代码，在服务端和客户端都运行。
 
-const PostsIndex:NextPage=()=>{
 
-    const [posts,setPosts]=useState([])
-    useEffect(()=>{
-        axios.get('/api/posts').then(res=>{
-            setPosts(res.data)
-        })
-    },[])
-
-    return(
-        <div>
-            Posts Index
-        </div>
-    )
-}
-
-export default PostsIndex
-```
+---
+#### Next 关于 SSG,SSR 的相关内容
+* [Pages](https://nextjs.org/docs/basic-features/pages)
+* [Data fetching](https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering)
